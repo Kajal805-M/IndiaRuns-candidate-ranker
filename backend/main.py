@@ -15,8 +15,8 @@ app = FastAPI(
 # In a true production environment, replace "*" with the explicit Vercel/frontend domain.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"], # Restricting to local dev ports for now
-    allow_credentials=True,
+    allow_origins=["*"], # Allow Netlify and Vercel
+    allow_credentials=False,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
