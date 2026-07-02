@@ -9,7 +9,7 @@ router = APIRouter()
 # Default JD loaded from the txt file ideally. For now, a quick summary string.
 DEFAULT_JD = "Senior AI Engineer. Production experience with embeddings, vector databases like FAISS, Pinecone. Python programming. Evaluation frameworks like NDCG. Needs product company experience."
 
-@router.get("/")
+@router.get("")
 def get_ranked_candidates(db: Session = Depends(get_db)):
     results = rank_candidates(db, DEFAULT_JD, top_n=100)
     

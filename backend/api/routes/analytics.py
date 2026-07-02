@@ -6,8 +6,8 @@ from models.candidate import CandidateModel
 
 router = APIRouter()
 
-@router.get("/")
-def get_analytics(db: Session = Depends(get_db)):
+@router.get("")
+def get_dashboard_analytics(db: Session = Depends(get_db)):
     """
     Returns aggregated analytics for the React Dashboard.
     Uses limited query samples for fast PoC load times.
