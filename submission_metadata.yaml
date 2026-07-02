@@ -1,0 +1,25 @@
+team_name: IndiaRuns
+project_name: Intelligent Candidate Discovery Platform
+
+scripts:
+  ranking_engine: submission/rank.py
+  backend_api: backend/main.py
+  frontend_ui: frontend/src/main.jsx
+
+methodology: |
+  We utilized an offline FAISS vector search coupled with strict heuristics 
+  and signal boosts. `sentence-transformers` handles dense encoding of careers 
+  (ignoring keyword stuffers). CPU execution securely filters 100k+ candidates down 
+  to the top 2000 highest potentials before neural processing. Execution time is under 2 minutes.
+  
+  The accompanying Sandbox UI uses React, Recharts, and Gemini on the backend 
+  for deep explainability (which degradation safely catches without breaking offline core).
+
+deployment_specs:
+  backend_platform: Render
+  backend_config: backend/render.yaml
+  frontend_platform: Vercel
+  frontend_config: frontend/vercel.json
+
+cpu_time_est: "< 90 seconds"
+external_network_calls_in_ranker: false
