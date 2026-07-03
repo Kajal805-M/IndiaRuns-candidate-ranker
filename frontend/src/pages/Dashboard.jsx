@@ -5,9 +5,18 @@ import { Search, Sliders } from 'lucide-react';
 
 export default function Dashboard() {
   const [candidates, setCandidates] = useState([]);
+  const [errorMsg, setErrorMsg] = useState(null);
   
   useEffect(() => {
-    api.get('candidates').then(res => setCandidates(res.data)).catch(console.error);
+    api.get('candidates')
+      .then(res => {
+        setCandidates(res.data);
+        setErrorMsg(null);
+      })
+      .catch(err => {
+        console.error(err);
+        setErrorMsg(err.message + " | " + (err.response?.data?.detail || "No backend details"));
+      });
   }, []);
 
   return (
@@ -51,7 +60,14 @@ export default function Dashboard() {
               </div>
             </Link>
           ))}
-          {candidates.length === 0 && (
+          {errorMsg && (
+             <div className="p-8 text-center text-red-500 font-bold border border-red-500 rounded bg-red-500/10 m-4">
+                FATAL ERROR LOADING CANDIDATES:<br/>
+                {errorMsg}<br/>
+                <span className="text-sm font-normal text-slate-300 mt-2 block">Please take a screenshot of this red box and show me.</span>
+             </div>
+          )}
+          {candidates.length === 0 && !errorMsg && (
              <div className="p-8 text-center text-slate-400">Loading candidates... (or run load_data.py first)</div>
           )}
         </div>
