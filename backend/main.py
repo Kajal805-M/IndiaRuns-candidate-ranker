@@ -24,6 +24,28 @@ app.add_middleware(
 # Include API Router
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+@app.on_event("startup")
+def startup_event():
+    from db.session import SessionLocal
+    from models.candidate import CandidateModel
+    from scripts.load_data import load_data
+    import os
+
+    try:
+        db = SessionLocal()
+        count = db.query(CandidateModel).count()
+        db.close()
+        
+        if count == 0:
+            print("Database is empty (Ephemeral Disk). Populating with mock data for the UI...")
+            data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sample_candidates.jsonl")
+            if os.path.exists(data_path):
+                load_data(data_path)
+            else:
+                print(f"ERROR: Could not find dataset at {data_path}")
+    except Exception as e:
+        print(f"Error during startup data load: {e}")
+
 @app.get("/health", tags=["System"])
 def health_check():
     """
