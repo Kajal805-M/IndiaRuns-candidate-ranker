@@ -3,16 +3,6 @@ from core.config import settings
 from fastapi import HTTPException
 import json
 
-# Safely configure Gemini - Fallback without crashing
-ai_configured = False
-try:
-    if settings.GEMINI_API_KEY and settings.GEMINI_API_KEY != "YOUR_GEMINI_API_KEY_HERE":
-        genai.configure(api_key=settings.GEMINI_API_KEY)
-        ai_configured = True
-except Exception as e:
-    print(f"Error configuring Gemini: {e}")
-    pass
-
 def generate_offline_reasoning(candidate, score) -> str:
     """
     Deterministic rule-based reasoning for the CSV hackathon submission 
@@ -26,12 +16,22 @@ def generate_offline_reasoning(candidate, score) -> str:
     return reason
 
 def get_gemini_model():
-    if not ai_configured:
+    if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY == "YOUR_GEMINI_API_KEY_HERE":
         raise HTTPException(
             status_code=503, 
-            detail="Gemini API Key is missing. Please set GEMINI_API_KEY in .env. AI features are currently disabled."
+            detail="Gemini API Key is completely missing in Render Environment Variables. Please verify the spelling of GEMINI_API_KEY."
         )
-    return genai.GenerativeModel('gemini-1.5-flash')
+    
+    try:
+        # Strip any accidental quotes or whitespace from the Render env var
+        clean_key = settings.GEMINI_API_KEY.strip().strip('"').strip("'")
+        genai.configure(api_key=clean_key)
+        return genai.GenerativeModel('gemini-1.5-flash')
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Google Generative AI SDK rejected your API key. Error: {str(e)}"
+        )
 
 def generate_match_report(candidate_json: dict, jd_text: str) -> dict:
     model = get_gemini_model()
