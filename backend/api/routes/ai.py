@@ -98,12 +98,12 @@ def copilot_query(payload: CopilotQuery):
         return {"reply": response.text}
     except Exception as e:
         # Dynamic fallback
-        q = payload.query.lower()
+        q = payload.query.lower().strip()
         # Use word boundaries to avoid matching "this" or "think"
         words = set(q.split())
         if "why" in words and "2" in words:
             reply = "Candidate #1 (Shaurya Saxena) is ranked higher than Candidate #2 because Shaurya has significantly more experience (14.9 years vs 6.1 years) and a higher semantic match score (0.660 vs 0.587) with the core skills in the JD, outweighing Candidate #2's perfect job title."
-        elif "hello" in words or "hi" in words:
+        elif any(greeting in q for greeting in ["hi ", "hello", "hey", "hii", "howdy"]) or q in ["hi", "hii"]:
             reply = "Hello! I am your AI Recruiter Copilot. Your Gemini API key is currently returning a 403 Forbidden error, so I am running in Fallback Mode. How can I assist you with the candidate pipeline today?"
         else:
             reply = f"That's a great question about: '{payload.query}'. Based on my semantic analysis, our top candidates possess deep expertise in vector databases and embeddings. Let me know if you want me to draft an outreach email to any of them!"
