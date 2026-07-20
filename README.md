@@ -113,14 +113,16 @@ graph TD
         M -->|Explainability & Copilot| L
     end
 ```
-```
+---
+
 # 👥 Team
 
 | Name | Role |
 |------|------|
-| **Kamal Vasa** |AI/ML Engineer •  Frontend Development |
 | **Kajal Maurya** | AI/ML Engineer • Backend Development |
-| **Tejasvi Shukla** | AI Integration / Testing / Research |
+| **Kamal Vasa** | Frontend Development |
+| **Third Team Member** | AI Integration / Testing / Research |
+
 ---
 
 # 📂 Project Structure
