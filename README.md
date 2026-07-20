@@ -1,195 +1,171 @@
 # 🚀 Intelligent Candidate Discovery Platform
 
 <p align="center">
-  <img src="https://img.shields.io/badge/AI-Powered-success?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi"/>
-  <img src="https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react"/>
-  <img src="https://img.shields.io/badge/FAISS-Vector%20Search-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Gemini-LLM-orange?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/AI-Powered-success?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi"/>
+
+<img src="https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react"/>
+
+<img src="https://img.shields.io/badge/FAISS-Vector%20Database-blue?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Gemini-LLM-orange?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Hackathon-IndiaRuns-red?style=for-the-badge"/>
+
 </p>
 
 <p align="center">
-AI-powered candidate ranking platform that intelligently analyzes resumes, ranks applicants, detects suspicious patterns, and provides explainable hiring recommendations.
+AI-powered recruitment platform that intelligently analyzes resumes, ranks candidates, detects suspicious profiles, and provides explainable hiring recommendations using semantic search and Large Language Models.
 </p>
 
 ---
 
-# 🌟 Live Demo
+## 🌐 Live Demo
 
-🔗 **Demo:** https://bright-dolphin-df77cd.netlify.app
+🔗 https://bright-dolphin-df77cd.netlify.app
+
+---
+
+# 📑 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Technology Stack](#-technology-stack)
+- [System Architecture](#-system-architecture)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [AI Workflow](#-ai-workflow)
+- [Future Improvements](#-future-improvements)
+- [Team](#-team)
+- [License](#-license)
 
 ---
 
 # 📖 Overview
 
-Recruiters often spend hours manually reviewing resumes, leading to inconsistent and biased shortlisting.
+The Intelligent Candidate Discovery Platform is an AI-powered hiring assistant developed for the **IndiaRuns Data & AI Challenge**.
 
-The **Intelligent Candidate Discovery Platform** automates this process using AI-powered resume analysis, semantic search, explainable candidate ranking, and behavioral heuristic detection.
+Instead of relying only on keyword matching, the platform performs **semantic resume analysis**, **vector similarity search**, and **LLM-based reasoning** to identify the most suitable candidates while providing transparent explanations for every ranking.
 
-The platform is designed for:
-
-- HR Teams
-- Recruiters
-- Hiring Managers
-- Technical Interview Panels
+The solution is designed for recruiters, HR teams, and hiring managers to reduce manual screening time and improve hiring quality.
 
 ---
 
-# ✨ Key Features
+# ✨ Features
 
-## 🤖 AI Resume Ranking
-
-- Semantic Resume Matching
-- Candidate Scoring
-- Skill Extraction
-- Experience Evaluation
-- Education Analysis
-
----
-
-## 🔍 Intelligent Search
-
-- FAISS Vector Search
-- Dense Embeddings
-- Semantic Candidate Retrieval
-- Fast Similarity Search
+- 🤖 AI Resume Ranking
+- 🔍 Semantic Candidate Search
+- 📄 Resume Parsing
+- 📊 Candidate Leaderboard
+- 🧠 Explainable AI Recommendations
+- ⚠️ Behavioral Trap Detection
+- 🚀 Fast Vector Search with FAISS
+- 📈 Recruiter Analytics Dashboard
+- 💬 LLM-powered Hiring Rationale
+- 🔒 Offline Candidate Ranking Support
 
 ---
 
-## 🧠 Explainable AI
+# 🛠️ Technology Stack
 
-Every candidate receives:
-
-- Overall Score
-- Match Percentage
-- Strengths
-- Weaknesses
-- AI-generated Hiring Reason
-- Transparent Ranking Logic
-
----
-
-## 🛡️ Behavioral Trap Detection
-
-Detects suspicious resumes using heuristic rules such as:
-
-- Keyword Stuffing
-- Skill Inflation
-- Experience Mismatch
-- Inconsistent Resume Patterns
-
----
-
-## 📊 Recruiter Dashboard
-
-- Candidate Leaderboard
-- Resume Ranking
-- AI Insights
-- Explainability Panel
-- Detailed Candidate Reports
-
----
-
-# ⚙️ Tech Stack
-
-## Backend
-
-- FastAPI
-- Python
-- FAISS
-- Google Gemini API
-- Sentence Transformers
-- Pandas
-- NumPy
-
----
-
-## Frontend
-
-- React
-- JavaScript
-- HTML5
-- CSS3
-
----
-
-## AI Components
-
-- Resume Embeddings
-- Semantic Similarity Search
-- Rule-Based Explainability
-- Candidate Ranking Engine
-- Prompt Engineering
+| Technology | Used For |
+|------------|----------|
+| **Python** | Core backend development, AI pipeline, resume processing, and ranking engine |
+| **FastAPI** | Building high-performance REST APIs and integrating AI services |
+| **React.js** | Creating a modern, responsive, and interactive recruiter dashboard |
+| **JavaScript** | Client-side logic and dynamic user interactions |
+| **HTML5 & CSS3** | Designing responsive and user-friendly interfaces |
+| **Google Gemini API** | Generating AI-powered hiring explanations, resume summaries, and candidate insights |
+| **FAISS** | Performing fast semantic vector search to retrieve the most relevant candidates |
+| **Sentence Transformers** | Converting resumes into dense vector embeddings for semantic similarity matching |
+| **Pandas** | Loading, cleaning, preprocessing, and managing resume datasets |
+| **NumPy** | Numerical computations and vector operations within the AI pipeline |
+| **REST APIs** | Enabling communication between the frontend and backend services |
+| **Git & GitHub** | Version control, collaboration, and project management |
 
 ---
 
 # 🏗️ System Architecture
 
+
+```mermaid
+graph TD
+    A[Raw candidates.jsonl] --> B(Data Cleaner & Heuristics)
+    B -->|Filter Ghosts & Title Chasers| C[Top 2000 Candidates]
+    C --> D(SentenceTransformers all-MiniLM-L6)
+    D --> E[(FAISS Vector Index)]
+    D --> F[(SQLite Meta DB)]
+    
+    JD[Job Description Text] --> G(Embed JD)
+    G --> H{Hybrid Ranker}
+    E --> H
+    F --> H
+    H -->|Semantic Score + Behavioral Boost| I(Deterministic Reasoner)
+    I --> J[team_india_runs.csv]
+    
+    subgraph Web App Sandbox
+        F --> K[FastAPI Backend]
+        E --> K
+        K --> L[React/Vite Dashboard]
+        K <--> M((Gemini 3.1 Pro API))
+        M -->|Explainability & Copilot| L
+    end
 ```
-                     Resume Dataset
-                            │
-                            ▼
-                 Resume Parsing & Cleaning
-                            │
-                            ▼
-                 Sentence Embedding Model
-                            │
-                            ▼
-                    FAISS Vector Store
-                            │
-          ┌─────────────────┴────────────────┐
-          ▼                                  ▼
- Semantic Candidate Search          Resume Ranking
-          │                                  │
-          └──────────────┬───────────────────┘
-                         ▼
-              Explainability Engine
-                         │
-                         ▼
-               Recruiter Dashboard
+```
+# 👥 Team
+
+| Name | Role |
+|------|------|
+| **Kamal Vasa** |AI/ML Engineer •  Frontend Development |
+| **Kajal Maurya** | AI/ML Engineer • Backend Development |
+| **Tejasvi Shukla** | AI Integration / Testing / Research |
+---
+
+# 📂 Project Structure
+
+```
+IndiaRuns-candidate-ranker/
+
+│
+
+├── backend/
+│   ├── api/
+│   ├── services/
+│   ├── ranking/
+│   ├── embeddings/
+│   └── main.py
+│
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   └── public/
+│
+├── data/
+│
+├── models/
+│
+├── requirements.txt
+│
+└── README.md
 ```
 
 ---
 
-# 📁 Project Structure
-
-```
-backend/
-│
-├── api/
-├── ranking/
-├── embeddings/
-├── services/
-├── utils/
-└── main.py
-
-frontend/
-│
-├── src/
-├── public/
-└── components/
-
-data/
-
-models/
-
-README.md
-```
-
----
-
-# 🚀 Getting Started
+# 🚀 Installation
 
 ## Clone Repository
 
 ```bash
 git clone https://github.com/Kajal805-M/IndiaRuns-candidate-ranker.git
+
 cd IndiaRuns-candidate-ranker
 ```
 
 ---
 
-## Backend Setup
+## Backend
 
 ```bash
 cd backend
@@ -205,7 +181,7 @@ uvicorn main:app --reload
 
 ---
 
-## Frontend Setup
+## Frontend
 
 ```bash
 cd frontend
@@ -217,44 +193,56 @@ npm run dev
 
 ---
 
-# 📊 AI Pipeline
+# 🤖 AI Workflow
 
 ```
 Resume Upload
 
-        │
+      │
 
-        ▼
+      ▼
 
 Resume Parsing
 
-        │
+      │
 
-        ▼
+      ▼
 
-Embedding Generation
+Text Preprocessing
 
-        │
+      │
 
-        ▼
+      ▼
 
-FAISS Retrieval
+Sentence Embeddings
 
-        │
+      │
 
-        ▼
+      ▼
+
+FAISS Similarity Search
+
+      │
+
+      ▼
 
 Candidate Ranking
 
-        │
+      │
 
-        ▼
+      ▼
 
-Gemini Explanation
+Behavioral Analysis
 
-        │
+      │
 
-        ▼
+      ▼
+
+Gemini AI Explanation
+
+      │
+
+      ▼
 
 Recruiter Dashboard
 ```
@@ -263,61 +251,45 @@ Recruiter Dashboard
 
 # 🎯 Use Cases
 
-- Resume Shortlisting
-- AI Candidate Ranking
-- Technical Hiring
-- Campus Recruitment
-- Mass Hiring
-- Recruitment Automation
+- Resume Screening
+- Campus Hiring
+- Technical Recruitment
+- Mass Recruitment
+- AI-powered Candidate Ranking
+- HR Automation
 
 ---
 
 # 📈 Future Improvements
 
-- Multi-language Resume Support
-- OCR for Image Resumes
-- Interview Scheduling
-- Email Notifications
 - ATS Integration
-- Voice-based Candidate Analysis
+- OCR Support for Image-based Resumes
+- Voice Interview Analysis
+- Multi-language Resume Processing
+- Recruiter Analytics Dashboard
+- Email Notifications
+- Resume Skill Gap Analysis
+- Interview Scheduling
 - Bias Detection
-- Analytics Dashboard
-
----
-
-# 👥 Team
-
-| Name | Role |
-|-------|------|
-| **Kamal Vasa(Team Leader)** |AI/ML Engineer, Frontend Developer |
-| **Kajal Maurya** | AI/ML Engineer, Backend |
-| **Third Member Name** | AI Integration / Research |
+- Cloud Deployment
 
 ---
 
 # 🏆 Hackathon
 
-Developed for the **IndiaRuns Data & AI Challenge**.
-
-Focused on:
-
-- Explainable AI
-- Semantic Search
-- Candidate Ranking
-- AI-assisted Recruitment
-- Fast Resume Discovery
+Developed for the **IndiaRuns Data & AI Challenge** with the goal of building an intelligent and explainable AI-powered recruitment platform capable of semantic resume analysis and automated candidate ranking.
 
 ---
 
-# 📄 License
+# 📜 License
 
-This project is intended for educational, research, and hackathon purposes.
+This project is developed for educational, research, and hackathon purposes.
 
 ---
 
 # ⭐ Support
 
-If you found this project helpful,
+If you found this project useful,
 
 ⭐ Star this repository
 
@@ -328,5 +300,7 @@ If you found this project helpful,
 ---
 
 <p align="center">
+
 Made with ❤️ by Team IndiaRuns
+
 </p>
