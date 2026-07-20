@@ -289,8 +289,8 @@ Recruiter Dashboard
 
 | Name | Role |
 |-------|------|
+| **Kamal Vasa(Team Leader)** |AI/ML Engineer, Frontend Developer |
 | **Kajal Maurya** | AI/ML Engineer, Backend |
-| **Kamal Vasa** | Frontend Developer |
 | **Third Member Name** | AI Integration / Research |
 
 ---
