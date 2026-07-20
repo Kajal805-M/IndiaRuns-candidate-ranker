@@ -121,7 +121,7 @@ graph TD
 |------|------|
 | **Kamal Vasa** | AI/ML Engineer • Frontend Development |
 | **Kajal Maurya** | AI/ML Engineer • Backend Development |
-| **Tejasvi ** | AI Integration / Testing / Research |
+| **Tejasvi Shukla ** | AI Integration / Testing / Research |
 
 ---
 
